@@ -10,18 +10,19 @@ export default function Login(){
     const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
 
     const handleLogin = async () => {
-        const { error } = await supabase.auth.signInWithPassword({email, password});
+        setErrorMessage(""); // Clear previous errors
 
-        if(error){
-            alert(error.message);
-        }
-        else{
-            alert("Login successfull"); 
+        const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+        if (error) {
+            setErrorMessage(error.message); 
+        } else {
             router.push("/dashboard");
         }
-    }
+    };
 
 
     return(
@@ -44,9 +45,16 @@ export default function Login(){
                 placeholder="Enter your password"
                 className="text-gray-700 w-full p-2 mb-4 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+           {errorMessage ? (
+                <div className="alert alert-error text-sm text-red-600 bg-red-100 p-2 rounded mb-3">
+                    {errorMessage}
+                 </div>
+            ) : null}
+
+
             <button
                 onClick={handleLogin}
-                className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
+                className="btn btn-primary w-full">
                     Login
                 </button>
 
