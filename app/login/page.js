@@ -24,6 +24,11 @@ export default function Login(){
         }
     };
 
+    const pressBack = () => {
+        router.push("/");  
+    };
+    
+
 
     return(
 
@@ -51,12 +56,18 @@ export default function Login(){
                  </div>
             ) : null}
 
-
+                
             <button
                 onClick={handleLogin}
                 className="btn btn-primary w-full">
                     Login
                 </button>
+            
+            <button 
+            onClick={pressBack}
+            className="btn btn-primary w-full mt-10">
+                Back
+            </button>
 
     </div>
 
